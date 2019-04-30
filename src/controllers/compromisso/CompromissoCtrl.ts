@@ -12,14 +12,14 @@ import {
     Status
 } from "@tsed/common";
 import {NotFound} from "ts-httpexceptions";
-import {CompromissoInterface} from "../../interfaces/CompromissoInterface";
+import {Compromisso} from "../../interfaces/Compromisso";
 
 
 @Controller("/:calendarId/compromisso")
 @MergeParams(true)
 export class CompromissoCtrl {
     private AUTO_INC = 5;
-    private events: CompromissoInterface[] = require("../../../resources/events.json");
+    private events: Compromisso[] = require("../../../resources/events.json");
 
     /**
      *
@@ -27,7 +27,7 @@ export class CompromissoCtrl {
      */
     @Get("/:id")
     async get(@Required() @PathParams("calendarId") calendarId: string,
-              @PathParams("id") id: string): Promise<CompromissoInterface> {
+              @PathParams("id") id: string): Promise<Compromisso> {
         // const event = this.events.find(event => event.id === id && event.calendarId === calendarId);
 
         return null;
@@ -42,12 +42,12 @@ export class CompromissoCtrl {
     async save(@Required() @PathParams("calendarId") calendarId: string,
                @BodyParams("startDate") startDate: string,
                @BodyParams("endDate") endDate: string,
-               @BodyParams("name") name: string): Promise<CompromissoInterface> {
+               @BodyParams("name") name: string): Promise<Compromisso> {
 
 
         // this.AUTO_INC++;
         //
-        // const event: CompromissoInterface = {id: "" + this.AUTO_INC, calendarId, startDate, endDate, name};
+        // const event: Compromisso = {id: "" + this.AUTO_INC, calendarId, startDate, endDate, name};
         // this.events.push(event);
 
         return null;
@@ -62,7 +62,7 @@ export class CompromissoCtrl {
                  @PathParams("id") id: string,
                  @BodyParams("startDate") startDate: string,
                  @BodyParams("endDate") endDate: string,
-                 @BodyParams("name") name: string): Promise<CompromissoInterface> {
+                 @BodyParams("name") name: string): Promise<Compromisso> {
 
         // const event = await this.get(calendarId, id);
         // event.name = name;
@@ -78,14 +78,14 @@ export class CompromissoCtrl {
     @Authenticated()
     @Status(204)
     async remove(@Required() @PathParams("calendarId") calendarId: string,
-                 @PathParams("id") id: string): Promise<CompromissoInterface> {
+                 @PathParams("id") id: string): Promise<Compromisso> {
 
         // this.events = this.events.filter(event => event.id === id && event.calendarId === calendarId);
         return null;
     }
 
     @Get("/")
-    async getEvents(@Required() @PathParams("calendarId") calendarId: string): Promise<CompromissoInterface[]> {
+    async getEvents(@Required() @PathParams("calendarId") calendarId: string): Promise<Compromisso[]> {
         return null;
         // this.events.filter(event => event.calendarId === calendarId);
     }

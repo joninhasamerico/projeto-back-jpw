@@ -1,6 +1,6 @@
 import {Task} from "./Task";
 
-export interface CompromissoInterface {
+export interface Compromisso {
   id: string;
   agendaId: string;
   descricaoCompromisso: string;

@@ -1,5 +1,5 @@
 import {Service} from "@tsed/common";
-import {AgendaInterface} from "../../interfaces/AgendaInterface";
+import {Agenda} from "../../interfaces/Agenda";
 
 const datastore = require("nedb");
 const db = new datastore({filename: "agenda.json"});
@@ -13,42 +13,52 @@ export class AgendaService {
     }
 
     /**
-     * Find a person by his ID.
+     * Find a agenda by his ID.
      * @param id
-     * @returns {undefined|Person}
+     * @returns {undefined|Agenda}
      */
-    async findById(id: string): Promise<AgendaInterface> {
-        return await db.find({_id: id}, (err, docs) => {
-            return docs;
+    async findById(id: string): Promise<Agenda> {
+        return new Promise((resolve, reject) => {
+            db.find({_id: id}, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
         });
     }
 
     /**
-     * Create a new Person
+     * Create a new Agenda
      * @param agenda
-     * @returns {{id: any, name: string}}
+     * @returns {{id: any}}
      */
-    async create(agenda: AgendaInterface) {
-        console.log("Oiiii " + agenda)
-
-        return await db.insert(agenda, (err) => {
-            if (err) return console.log(err);
-
-            console.log("Novo usuário adicionado! " + agenda.id);
-
-            return this.findById(agenda.id);
+    async create(agenda: Agenda): Promise<Agenda> {
+        return new Promise((resolve, reject) => {
+            db.insert(agenda, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
         });
     }
 
     /**
      *
-     * @returns {Person[]}
+     * @returns {Agenda[]}
      */
-    async query(): Promise<AgendaInterface[]> {
-        return await db.find({}, (err, usuarios) => {
-            if (err) return console.log(err);
-
-            return  usuarios;
+    async query(): Promise<Agenda[]> {
+        return new Promise((resolve, reject) => {
+            db.find({}, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
         });
     }
 
@@ -58,13 +68,17 @@ export class AgendaService {
      * @param agenda
      * @returns {Person}
      */
-    async update(id: string, agenda: AgendaInterface): Promise<AgendaInterface> {
-        return await db.update({_id: id}, agenda, (err) => {
-            if (err) return console.log(err);
-
-            console.log("Usuário atualizado");
+    async update(id: string, agenda: Agenda): Promise<Agenda> {
+        return new Promise((resolve, reject) => {
+            db.update({_id: id}, agenda, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
         });
-        ;
+
     }
 
     /**
@@ -72,7 +86,7 @@ export class AgendaService {
      * @param id
      * @returns {Promise<Person>}
      */
-    async remove(id: string): Promise<AgendaInterface> {
+    async remove(id: string): Promise<Agenda> {
         return null;
     }
 }

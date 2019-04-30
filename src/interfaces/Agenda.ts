@@ -1,4 +1,4 @@
-export interface AgendaInterface {
+export interface Agenda {
   id: string;
   diaSemana: Date;
   dataCompromisso: Date;
