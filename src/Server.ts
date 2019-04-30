@@ -14,7 +14,7 @@ const rootDir = __dirname;
   rootDir,
   acceptMimes: ["application/json"],
   mount: {
-    '/api': `${rootDir}/**/*Ctrl.ts`
+    "/api": `${rootDir}/**/*Ctrl.ts`
   },
   logger: {
     debug: false,
