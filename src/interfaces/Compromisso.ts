@@ -1,5 +1,3 @@
-import {Task} from "./Task";
-
 export interface Compromisso {
   id: string;
   agendaId: string;

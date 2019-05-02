@@ -1,11 +1,21 @@
-import {BodyParams, Controller, Delete, Get, PathParams, Post, Put, Required} from "@tsed/common";
+import {
+    Authenticated,
+    BodyParams,
+    Controller,
+    Delete,
+    Get,
+    PathParams,
+    Post,
+    Put,
+    Required,
+    Status
+} from "@tsed/common";
 import {NotFound} from "ts-httpexceptions";
 import {Agenda} from "../../interfaces/Agenda";
-import {AgendaService} from "../../services/compromisso/AgendaService";
-import {CompromissoCtrl} from "../compromisso/CompromissoCtrl";
+import {AgendaService} from "../../services/agenda/AgendaService";
 
 
-@Controller("/agenda", CompromissoCtrl)
+@Controller("/agenda")
 export class AgendaCtrl {
 
     constructor(private agendaService: AgendaService) {
@@ -20,13 +30,6 @@ export class AgendaCtrl {
         return agenda;
     }
 
-    @Post("/")
-    async save(@BodyParams() agenda: Agenda) {
-        const teste = await this.agendaService.create(agenda);
-
-        return teste;
-    }
-
     @Get("/:id")
     async findById(@Required() @PathParams("id") id: string): Promise<Agenda> {
 
@@ -34,7 +37,14 @@ export class AgendaCtrl {
         if (people) {
             return people;
         }
-        throw new NotFound("Person not found");
+        throw new NotFound("Agenda not found");
+    }
+
+    @Post("/")
+    async save(@BodyParams() agenda: Agenda) {
+        const agendaCriada = await this.agendaService.create(agenda);
+
+        return agendaCriada;
     }
 
     /**
@@ -52,13 +62,10 @@ export class AgendaCtrl {
         return teste;
     }
 
-    /**
-     *
-     * @param id
-     * @returns {{id: string, name: string}}
-     */
-    @Delete("/:id")
-    async remove(@BodyParams("id") @Required() id: string): Promise<void> {
+    @Delete("/")
+    @Authenticated()
+    @Status(204)
+    async remove(@BodyParams("id") id: string): Promise<void> {
         this.agendaService.remove(id);
     }
 }

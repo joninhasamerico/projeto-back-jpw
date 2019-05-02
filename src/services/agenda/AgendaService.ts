@@ -66,7 +66,7 @@ export class AgendaService {
      *
      * @param id
      * @param agenda
-     * @returns {Person}
+     * @returns {Agenda}
      */
     async update(id: string, agenda: Agenda): Promise<Agenda> {
         return new Promise((resolve, reject) => {
@@ -84,9 +84,19 @@ export class AgendaService {
     /**
      *
      * @param id
-     * @returns {Promise<Person>}
+     * @returns {Promise<Agenda>}
      */
-    async remove(id: string): Promise<Agenda> {
-        return null;
+    async remove(id: string)/*: Promise<Agenda>*/ {
+        return new Promise((resolve, reject) => {
+            console.log(id);
+            db.remove({_id: id}, {} , (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
+        });
+
     }
 }
