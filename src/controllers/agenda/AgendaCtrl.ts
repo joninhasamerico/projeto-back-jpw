@@ -57,7 +57,6 @@ export class AgendaCtrl {
     async update(@PathParams("id") @Required() id: string,
                  @BodyParams() @Required() agenda: Agenda): Promise<Agenda> {
         const teste = this.agendaService.update(id, agenda);
-        console.log("AAA  " + teste);
 
         return teste;
     }
