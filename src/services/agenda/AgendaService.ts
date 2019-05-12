@@ -89,7 +89,7 @@ export class AgendaService {
     async remove(id: string)/*: Promise<Agenda>*/ {
         return new Promise((resolve, reject) => {
             console.log(id);
-            db.remove({_id: id}, {} , (err, docs) => {
+            db.remove({_id: id}, {}, (err, docs) => {
                 if (err) {
                     reject(err);
                 } else {

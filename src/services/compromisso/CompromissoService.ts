@@ -71,7 +71,7 @@ export class CompromissoService {
      * @param compromisso
      * @returns {compromisso}
      */
-    async update(agendaID: string, id: string,  compromisso: Compromisso): Promise<Compromisso> {
+    async update(agendaID: string, id: string, compromisso: Compromisso): Promise<Compromisso> {
         return new Promise((resolve, reject) => {
             db.update({agendaId: agendaID, _id: id}, compromisso, (err, docs) => {
                 if (err) {
@@ -92,7 +92,7 @@ export class CompromissoService {
      */
     async remove(iDagenda: string, id: string): Promise<Compromisso> {
         return new Promise((resolve, reject) => {
-            db.remove({agendaId: iDagenda, _id: id}, {} , (err, docs) => {
+            db.remove({agendaId: iDagenda, _id: id}, {}, (err, docs) => {
                 if (err) {
                     reject(err);
                 } else {

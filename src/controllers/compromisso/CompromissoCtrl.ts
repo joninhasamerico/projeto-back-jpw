@@ -25,7 +25,7 @@ export class CompromissoCtrl {
     }
 
     @Get("/:agendaId")
-    async getAllCompromisso(@Required() @PathParams("agendaId") agendaId: string)/*: Promise<Agenda[]> */{
+    async getAllCompromisso(@Required() @PathParams("agendaId") agendaId: string)/*: Promise<Agenda[]> */ {
         const agenda = this.compromissoService.query(agendaId);
 
 

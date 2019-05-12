@@ -23,7 +23,7 @@ export class AgendaCtrl {
 
 
     @Get("/")
-    async getAllAgenda()/*: Promise<Agenda[]> */{
+    async getAllAgenda()/*: Promise<Agenda[]> */ {
         const agenda = this.agendaService.query();
 
 

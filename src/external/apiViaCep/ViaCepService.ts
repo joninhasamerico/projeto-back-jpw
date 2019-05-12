@@ -6,20 +6,17 @@ const axios = require("axios");
 
 @Service()
 export class ViaCepService {
-    retornoViaCep: any;
-
     constructor() {
     }
 
     async findCep(cepReq: string): Promise<ViaCepApi> {
-        await axios.get("https://viacep.com.br/ws/" + cepReq + "/json/")
-            .then(response => {
-                this.retornoViaCep = response;
-            }).catch(error => {
-                console.log(error);
-            });
-
-        return this.retornoViaCep.data;
+        return new Promise((resolve, reject) => {
+            axios
+                .get("https://viacep.com.br/ws/" + cepReq + "/json/")
+                .then((response: { data: any }) => {
+                    resolve(response.data);
+                });
+        });
 
     }
 }

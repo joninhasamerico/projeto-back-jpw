@@ -1,5 +1,5 @@
 export interface Endereco {
-    idCompromisso: string;
+    compromissoId: string;
     id: string;
     cep: string;
     logradouro: string;
