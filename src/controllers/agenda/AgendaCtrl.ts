@@ -13,18 +13,23 @@ import {
 import {NotFound} from "ts-httpexceptions";
 import {Agenda} from "../../interfaces/Agenda";
 import {AgendaService} from "../../services/agenda/AgendaService";
+import {CompromissoService} from "../../services/compromisso/CompromissoService";
 
 
 @Controller("/agenda")
 export class AgendaCtrl {
 
-    constructor(private agendaService: AgendaService) {
+    constructor(private agendaService: AgendaService, private compromissoService: CompromissoService) {
     }
 
 
     @Get("/")
-    async getAllAgenda()/*: Promise<Agenda[]> */ {
-        const agenda = this.agendaService.query();
+    async getAllAgenda(): Promise<Agenda[]> {
+        const agenda = await this.agendaService.query();
+
+        for (let i = 0; i < agenda.length; i++) {
+            agenda[i].compromisso = await this.compromissoService.query(agenda[i]._id);
+        }
 
 
         return agenda;

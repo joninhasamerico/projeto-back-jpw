@@ -53,8 +53,9 @@ export class CompromissoService {
      * @returns {Compromisso[]}
      */
     async query(agendaID: string): Promise<Compromisso[]> {
-        return new Promise((resolve, reject) => {
-            db.find({agendaId: agendaID}, (err, docs) => {
+        console.log(agendaID);
+        return await new Promise((resolve, reject) => {
+             db.find({agendaId: agendaID}, (err, docs) => {
                 if (err) {
                     reject(err);
                 } else {

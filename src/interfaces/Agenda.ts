@@ -1,4 +1,7 @@
+import {Compromisso} from "./Compromisso";
+
 export interface Agenda {
-    id: string;
+    _id: string;
     diaMes: Date;
+    compromisso: Compromisso[];
 }
