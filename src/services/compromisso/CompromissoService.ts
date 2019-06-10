@@ -114,4 +114,16 @@ export class CompromissoService {
             });
         });
     }
+
+    async findAll(): Promise<Compromisso[]>  {
+        return new Promise((resolve, reject) => {
+            db.find({}, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
+        });
+    }
 }

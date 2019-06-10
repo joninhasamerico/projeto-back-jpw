@@ -1,5 +1,6 @@
 import {Service} from "@tsed/common";
 import {Agenda} from "../../interfaces/Agenda";
+import {nedbw} from "nedb"
 
 const datastore = require("nedb");
 const db = new datastore({filename: "agenda.json"});
@@ -99,4 +100,18 @@ export class AgendaService {
         });
 
     }
+
+    async procuraPorData(data){
+        return new Promise((resolve, reject) => {
+            console.log("diaMes "+data);
+            db.findOne({diaMes: data}, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
+        });
+    }
+
 }

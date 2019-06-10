@@ -10,10 +10,10 @@ import {
     Required,
     Status
 } from "@tsed/common";
-import {NotFound} from "ts-httpexceptions";
-import {Agenda} from "../../interfaces/Agenda";
-import {AgendaService} from "../../services/agenda/AgendaService";
-import {CompromissoService} from "../../services/compromisso/CompromissoService";
+import { NotFound } from "ts-httpexceptions";
+import { Agenda } from "../../interfaces/Agenda";
+import { AgendaService } from "../../services/agenda/AgendaService";
+import { CompromissoService } from "../../services/compromisso/CompromissoService";
 var fs = require('fs');
 var csv = require('fast-csv');
 var ws = fs.createWriteStream('my.csv')
@@ -50,9 +50,13 @@ export class AgendaCtrl {
 
     @Post("/")
     async save(@BodyParams() agenda: Agenda) {
-        const agendaCriada = await this.agendaService.create(agenda);
 
-        return agendaCriada;
+        const agendaCriada = await this.agendaService.procuraPorData(agenda.diaMes);
+        if (agendaCriada !== null) {
+            return agendaCriada;
+        }
+
+        return await this.agendaService.create(agenda);
     }
 
     /**
@@ -63,7 +67,7 @@ export class AgendaCtrl {
      */
     @Put("/:id")
     async update(@PathParams("id") @Required() id: string,
-                 @BodyParams() @Required() agenda: Agenda): Promise<Agenda> {
+        @BodyParams() @Required() agenda: Agenda): Promise<Agenda> {
         const teste = this.agendaService.update(id, agenda);
 
         return teste;
