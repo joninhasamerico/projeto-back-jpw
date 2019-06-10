@@ -40,10 +40,10 @@ export class ConsolidarCtrl {
 
         let validacao: string = "";
         agenda.forEach(agendaList => {
-            validacao = validacao + `<br> Dia ${agendaList.diaMes}, `;
+            validacao = validacao + `<br/> Dia ${agendaList.diaMes}, `;
             compromisso.forEach(compromissoList => {
                 if (agendaList._id === compromissoList.agendaId) {
-                    validacao = validacao + ` <br> Compromisso: ${compromissoList.assunto}`;
+                    validacao = validacao + ` <br/> Compromisso: ${compromissoList.assunto}`;
                 }
             });
         });
