@@ -102,4 +102,16 @@ export class CompromissoService {
             });
         });
     }
+
+    async removeAll(iDagenda: string): Promise<Compromisso> {
+        return new Promise((resolve, reject) => {
+            db.remove({agendaId: iDagenda}, {}, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
+        });
+    }
 }

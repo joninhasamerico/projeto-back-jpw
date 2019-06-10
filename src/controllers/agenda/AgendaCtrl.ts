@@ -14,7 +14,9 @@ import {NotFound} from "ts-httpexceptions";
 import {Agenda} from "../../interfaces/Agenda";
 import {AgendaService} from "../../services/agenda/AgendaService";
 import {CompromissoService} from "../../services/compromisso/CompromissoService";
-
+var fs = require('fs');
+var csv = require('fast-csv');
+var ws = fs.createWriteStream('my.csv')
 
 @Controller("/agenda")
 export class AgendaCtrl {
@@ -24,15 +26,16 @@ export class AgendaCtrl {
 
 
     @Get("/")
-    async getAllAgenda(): Promise<Agenda[]> {
+    async getAllAgenda()/*: Promise<Agenda[]>*/ {
         const agenda = await this.agendaService.query();
 
         for (let i = 0; i < agenda.length; i++) {
             agenda[i].compromisso = await this.compromissoService.query(agenda[i]._id);
         }
+        return agenda
+        // console.log(agenda)
 
-
-        return agenda;
+        // return csv.write([agenda], {headers:true}).pipe(ws);
     }
 
     @Get("/:id")
@@ -71,5 +74,6 @@ export class AgendaCtrl {
     @Status(204)
     async remove(@BodyParams("id") id: string): Promise<void> {
         this.agendaService.remove(id);
+        this.compromissoService.removeAll(id);
     }
 }
