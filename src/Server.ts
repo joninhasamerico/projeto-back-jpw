@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const compress = require("compression");
 const methodOverride = require("method-override");
+const cors = require("cors");
 const rootDir = __dirname;
 
 @ServerSettings({
@@ -40,6 +41,7 @@ export class Server extends ServerLoader {
       .use(compress({}))
       .use(methodOverride())
       .use(bodyParser.json())
+      .use(cors())
       .use(bodyParser.urlencoded({
         extended: true
       }));
